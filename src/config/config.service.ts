@@ -9,6 +9,7 @@ export class ConfigService {
   constructor() {
     const isDevelopementEnv = process.env.NODE_ENV !== 'production';
     if (isDevelopementEnv) {
+      console.log('es dev');
       const envFilePath = __dirname + '/../../.env';
       const existPath = fs.existsSync(envFilePath);
       if (!existPath) {
@@ -18,8 +19,16 @@ export class ConfigService {
 
       this.envConfig = parse(fs.readFileSync(envFilePath));
     } else {
+      console.log('es produccion');
       this.envConfig = {
         PORT: process.env.PORT,
+        POSTGRES_PORT_EXTERNAL: process.env.POSTGRES_PORT_EXTERNAL,
+        DB_USER: process.env.DB_USER,
+        DB_PASS: process.env.DB_PASS,
+        DB_NAME: process.env.DB_NAME,
+        DB_HOST: process.env.DB_HOST,
+        DB_PORT: process.env.DB_PORT,
+        DB_SYNC: process.env.DB_SYNC,
       };
     }
   }
